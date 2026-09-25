@@ -19,6 +19,7 @@ const TV_USER_AGENT_PATTERNS = [
   /netcast/i, // LG NetCast
   /viera/i, // Panasonic Viera
   /hbbtv/i,
+  /mitv/i, // 小米/红米电视（UA 形如 "Android 9; MiTV-ASTP0"，不含 "Android TV"）
 ];
 
 export function useTVDetection(): boolean {

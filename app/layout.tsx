@@ -17,6 +17,7 @@ import { LocaleProvider } from "@/components/LocaleProvider";
 import { RuntimeFeaturesProvider } from "@/components/RuntimeFeaturesProvider";
 import { VideoTogetherController } from '@/components/VideoTogetherController';
 import { shouldEnableVercelAnalytics } from '@/lib/config/deployment';
+import { LEGACY_COMPAT_SCRIPT } from '@/lib/utils/legacy-compat';
 import { getRuntimeFeatures } from "@/lib/server/runtime-features";
 import { resolveSiteIconSrc } from '@/lib/server/site-icon';
 import fs from 'fs';
@@ -92,6 +93,9 @@ export default async function RootLayout({
   return (
     <html lang="zh-CN" suppressHydrationWarning>
       <head>
+        {/* 旧版 Android TV 内核补丁：必须排在最前，Next 的应用分包带 async，
+            外链补丁脚本可能晚于首次执行。详见 lib/utils/legacy-compat.ts */}
+        <script dangerouslySetInnerHTML={{ __html: LEGACY_COMPAT_SCRIPT }} />
         {/* PWA Manifest */}
         <link rel="manifest" href="/manifest.json" />
         {/* Apple PWA Support */}
